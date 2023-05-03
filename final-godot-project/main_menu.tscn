@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c47y0fo7qh8ik"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 531.0
+offset_top = 295.0
+offset_right = 627.0
+offset_bottom = 326.0
+text = "Start Game"
