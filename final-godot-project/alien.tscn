@@ -257,7 +257,7 @@ texture_filter = 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uwjvy")
 animation = &"attack"
-frame_progress = 0.433352
+frame_progress = 0.289478
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(1, 1)
