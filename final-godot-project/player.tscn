@@ -430,7 +430,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muwf3"]
-size = Vector2(10, 19)
+size = Vector2(10, 12)
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
@@ -441,7 +441,7 @@ sprite_frames = SubResource("SpriteFrames_setg8")
 animation = &"interact_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
+position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_muwf3")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
