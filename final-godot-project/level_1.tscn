@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dji80fxxoqmqx"]
+[gd_scene load_steps=10 format=3 uid="uid://dji80fxxoqmqx"]
 
 [ext_resource type="Texture2D" uid="uid://b0r10ehnksn0p" path="res://assets/space_station_background.png" id="1_58isp"]
 [ext_resource type="Texture2D" uid="uid://dg7rx3120burl" path="res://assets/space_station_objects.png" id="2_is5oq"]
 [ext_resource type="PackedScene" uid="uid://bq0sthw36lyaw" path="res://player.tscn" id="3_1c8jy"]
 [ext_resource type="PackedScene" uid="uid://diiu36ufg6vg5" path="res://alien.tscn" id="4_fkolu"]
+[ext_resource type="PackedScene" uid="uid://dyujcx5y67vgr" path="res://player_ui.tscn" id="5_0vxxq"]
+[ext_resource type="PackedScene" uid="uid://djlfbgw5pvrlr" path="res://interact_object.tscn" id="6_rxem0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8522m"]
 texture = ExtResource("1_58isp")
@@ -35707,3 +35709,37 @@ scale = Vector2(3, 3)
 [node name="Alien" parent="." instance=ExtResource("4_fkolu")]
 position = Vector2(503, 170)
 scale = Vector2(3, 3)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("5_0vxxq")]
+offset_left = -576.0
+offset_right = -135.0
+
+[node name="InteractObject" parent="." instance=ExtResource("6_rxem0")]
+position = Vector2(1000, 77)
+scale = Vector2(12.9209, 13.669)
+
+[node name="InteractObject2" parent="." instance=ExtResource("6_rxem0")]
+position = Vector2(1634, 549)
+scale = Vector2(17.2809, 16.189)
+mytype = 0
+
+[node name="InteractObject3" parent="." instance=ExtResource("6_rxem0")]
+position = Vector2(2817, 366)
+scale = Vector2(17.2809, 16.189)
+mytype = 0
+
+[node name="InteractObject4" parent="." instance=ExtResource("6_rxem0")]
+position = Vector2(3485, 492)
+scale = Vector2(17.2809, 16.189)
+
+[node name="InteractObject5" parent="." instance=ExtResource("6_rxem0")]
+position = Vector2(4837, 395)
+scale = Vector2(19.1609, 16.509)
+mytype = 0
+
+[node name="InteractObject6" parent="." instance=ExtResource("6_rxem0")]
+position = Vector2(3252, 1026)
+scale = Vector2(19.1609, 16.509)
+mytype = 0

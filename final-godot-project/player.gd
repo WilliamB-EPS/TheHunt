@@ -7,6 +7,8 @@ var speed = 4
 var lastmovedir: Vector2 = Vector2.ZERO
 var lastdir: Vector2 = Vector2.ZERO
 var state_time = 0.0
+var curr_interact_area = null
+var num_keys = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,7 +35,6 @@ func switch_to(new_state: State):
 			$AnimatedSprite2D.flip_h = false 
 	elif new_state == State.INTERACT:
 		$AnimatedSprite2D.frame = 0
-		
 		if lastmovedir.x > 0:
 			$AnimatedSprite2D.play("interact_right")
 			$AnimatedSprite2D.flip_h = false
@@ -80,7 +81,9 @@ func _physics_process(delta):
 		
 	# Apply that movement and save the last vectors as part of our state so we can select which
 	# animation to play layer
-	move_and_collide(dir * speed)	
+	if curstate != State.INTERACT:
+		move_and_collide(dir * speed)	
+		
 	lastdir = dir
 	
 	if dir.length() > 0:
@@ -88,18 +91,13 @@ func _physics_process(delta):
 	
 	# Switch to different states, based on our current state, and the input received
 	if curstate == State.IDLE:
-		if Input.is_action_just_pressed("ui_accept"):
+		if self.curr_interact_area != null and Input.is_action_just_pressed("ui_accept"):
 			switch_to(State.INTERACT)
 		elif dir.length() > 0:
 			switch_to(State.MOVE)
 	elif curstate == State.MOVE:
-		if Input.is_action_just_pressed("ui_accept"):
-			switch_to(State.INTERACT)
-		elif dir.length() == 0:
+		if dir.length() == 0:
 			switch_to(State.IDLE)
-	elif curstate == State.INTERACT:
-		if Input.is_action_just_pressed("ui_accept"):
-			switch_to(State.INTERACT)
 		
 	# Update which animation is playing if you are in the movement state so it matches with the 
 	# player movement
@@ -111,6 +109,14 @@ func _physics_process(delta):
 func _on_animated_sprite_2d_animation_finished():
 	# Change states if needed once animations finish
 	if curstate == State.INTERACT:
+		$".."/CanvasLayer/PlayerUI.hide_interact()
+		if self.curr_interact_area.mytype == self.curr_interact_area.type.KEY:		
+			num_keys += 1
+			$".."/CanvasLayer/PlayerUI.set_num_keys(num_keys)
+		elif self.curr_interact_area.mytype == self.curr_interact_area.type.BLANK:	
+			$".."/CanvasLayer/PlayerUI.show_blank_message()	
+		self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED		
+		self.curr_interact_area = null
 		if lastdir.length() > 0:
 			switch_to(State.MOVE)
 		else:

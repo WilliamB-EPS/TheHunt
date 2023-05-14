@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyujcx5y67vgr"]
+
+[ext_resource type="Script" path="res://player_ui.gd" id="1_33b3k"]
+
+[node name="PlayerUI" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -322.0
+offset_right = -134.0
+offset_bottom = -246.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_33b3k")
+
+[node name="InteractBG" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = 370.0
+offset_top = 187.0
+offset_right = 770.0
+offset_bottom = 257.0
+color = Color(0, 0, 0, 0.647059)
+
+[node name="InteractContainer" type="HBoxContainer" parent="."]
+texture_filter = 1
+layout_mode = 1
+offset_left = 380.0
+offset_top = 194.0
+offset_right = 764.0
+offset_bottom = 250.0
+scale = Vector2(1, 0.983738)
+
+[node name="Label" type="Label" parent="InteractContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Space Bar to Interact"
+
+[node name="InventoryBG" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 688.0
+offset_top = -5.0
+offset_right = 1150.0
+offset_bottom = 60.0
+color = Color(0, 0, 0, 0.647059)
+
+[node name="InventoryContainer" type="HBoxContainer" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 764.0
+offset_top = -3.0
+offset_right = 1218.0
+offset_bottom = 53.0
+scale = Vector2(1, 0.983738)
+
+[node name="Label" type="Label" parent="InventoryContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Inventory: empty"
+
+[node name="UpdateBG" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 342.0
+offset_top = 264.0
+offset_right = 804.0
+offset_bottom = 329.0
+scale = Vector2(1, 1.52)
+color = Color(0, 0, 0, 0.647059)
+
+[node name="UpdateContainer" type="HBoxContainer" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 397.0
+offset_top = 282.0
+offset_right = 851.0
+offset_bottom = 338.0
+scale = Vector2(1, 0.983738)
+
+[node name="Label" type="Label" parent="UpdateContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Inventory: empty"
