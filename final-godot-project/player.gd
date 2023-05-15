@@ -9,10 +9,11 @@ var lastdir: Vector2 = Vector2.ZERO
 var state_time = 0.0
 var curr_interact_area = null
 var num_keys = 0
+var can_move = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite2D.play("stand_down")
+	$AnimatedSprite2D.play("idle_down")
 	
 
 func switch_to(new_state: State):
@@ -81,7 +82,7 @@ func _physics_process(delta):
 		
 	# Apply that movement and save the last vectors as part of our state so we can select which
 	# animation to play layer
-	if curstate != State.INTERACT:
+	if curstate != State.INTERACT and can_move:
 		move_and_collide(dir * speed)	
 		
 	lastdir = dir

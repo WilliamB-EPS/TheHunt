@@ -35,4 +35,8 @@ func show_blank_message():
 	$UpdateBG.visible = false
 	$UpdateContainer.visible = false
 
+func lose_screen():
+	$UpdateBG.visible = true
+	$UpdateContainer.visible = true
+	$UpdateContainer/Label.text = "You died. Game over"
 	

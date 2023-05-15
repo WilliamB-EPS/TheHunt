@@ -359,6 +359,11 @@ animations = [{
 "name": &"interact_up",
 "speed": 5.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ihms3")
@@ -438,7 +443,7 @@ script = ExtResource("1_stt5f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_setg8")
-animation = &"interact_up"
+animation = &"new_animation"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
