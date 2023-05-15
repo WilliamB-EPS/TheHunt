@@ -1,7 +1,7 @@
 extends Area2D
 
 # we can be either a blank object or a key
-enum type {BLANK, KEY, OPENED}
+enum type {BLANK, KEY, OPENED, END}
 
 @export 
 var mytype = type.KEY # set the type of this interact object in the editor

@@ -25,7 +25,7 @@ func switch_to(new_state: State):
 		just_entered_roam = true
 		movement_speed = 100.0
 	elif new_state == State.TRACK:
-		movement_speed = 200.0
+		movement_speed = 170.0
 
 func _physics_process(delta):
 	if curstate == State.TRACK and (player.position - self.position).length() < 70:

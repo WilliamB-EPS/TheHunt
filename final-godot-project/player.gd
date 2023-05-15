@@ -110,13 +110,21 @@ func _physics_process(delta):
 func _on_animated_sprite_2d_animation_finished():
 	# Change states if needed once animations finish
 	if curstate == State.INTERACT:
-		$".."/CanvasLayer/PlayerUI.hide_interact()
-		if self.curr_interact_area.mytype == self.curr_interact_area.type.KEY:		
-			num_keys += 1
-			$".."/CanvasLayer/PlayerUI.set_num_keys(num_keys)
-		elif self.curr_interact_area.mytype == self.curr_interact_area.type.BLANK:	
-			$".."/CanvasLayer/PlayerUI.show_blank_message()	
-		self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED		
+		if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
+			if num_keys == 2:	
+				self.queue_free()
+				$".."/Alien.queue_free()
+				$".."/CanvasLayer/PlayerUI.game_win()
+			else:
+				await $".."/CanvasLayer/PlayerUI.reqs_message()	
+		else:
+			$".."/CanvasLayer/PlayerUI.hide_interact()
+			if self.curr_interact_area.mytype == self.curr_interact_area.type.KEY:		
+				num_keys += 1
+				$".."/CanvasLayer/PlayerUI.set_num_keys(num_keys)
+			elif self.curr_interact_area.mytype == self.curr_interact_area.type.BLANK:	
+				$".."/CanvasLayer/PlayerUI.show_blank_message()	
+			self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED		
 		self.curr_interact_area = null
 		if lastdir.length() > 0:
 			switch_to(State.MOVE)
