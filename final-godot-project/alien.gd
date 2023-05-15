@@ -15,6 +15,7 @@ func _ready():
 	curstate = State.ROAM
 	navigation_agent.set_target_position(Vector2(100 + randi() % 6000, 80 + randi() % 1000))
 	
+	
 func switch_to(new_state: State):
 	curstate = new_state
 	state_time = 0.0
@@ -40,12 +41,11 @@ func _physics_process(delta):
 		switch_to(State.TRACK)
 	elif curstate == State.TRACK and (player.position - self.position).length() >= 500:
 		switch_to(State.ROAM)
-	
-	
+
 	if curstate == State.TRACK:
 		navigation_agent.target_position = player.position
 	# if we're roaming, get a new random position every 10 seconds
-	elif curstate == State.ROAM and (state_time > 10.0 or just_entered_roam):
+	elif curstate == State.ROAM and (state_time > 20.0):
 		navigation_agent.set_target_position(Vector2(100 + randi() % 6000, 80 + randi() % 1000))
 		state_time = 0
 		just_entered_roam = false
@@ -57,14 +57,28 @@ func _physics_process(delta):
 		
 		if curstate != State.ATTACK:
 			if new_velocity.x < 0:
-				$AnimatedSprite2D.play("walk_right")
 				$AnimatedSprite2D.flip_h = true
+				if abs(new_velocity.length()) < 10:
+					$AnimatedSprite2D.play("idle")
+				else:
+					$AnimatedSprite2D.play("walk_right")
 			else:
-				$AnimatedSprite2D.play("walk_right")
 				$AnimatedSprite2D.flip_h = false
-
+				if abs(new_velocity.length()) < 10:
+					$AnimatedSprite2D.play("idle")
+				else:
+					$AnimatedSprite2D.play("walk_right")
 		velocity = new_velocity
 		move_and_slide()
+	elif curstate != State.ATTACK:
+		if velocity.x < 0:
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play("idle")
+		else:
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.play("idle")
+		
+
 	state_time += delta
 		
 
