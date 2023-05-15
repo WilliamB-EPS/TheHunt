@@ -5,6 +5,8 @@ extends Control
 func _ready():
 	call_deferred("actor_setup")
 	
+# bad to call await in ready(), so moving setup stuff here
+# displays story background (will be more detailed later)
 func actor_setup():
 	await get_tree().physics_frame
 	$".."/".."/Player.can_move = false
@@ -30,6 +32,7 @@ func hide_interact():
 	$InteractContainer.visible = false
 	$InteractBG.visible = false
 	
+# increment num keys and show a message 
 func set_num_keys(numkeys):
 	$InventoryBG.visible = true
 	$InventoryContainer.visible = true

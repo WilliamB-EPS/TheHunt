@@ -82,7 +82,7 @@ func _physics_process(delta):
 		
 	# Apply that movement and save the last vectors as part of our state so we can select which
 	# animation to play layer
-	if curstate != State.INTERACT and can_move:
+	if curstate != State.INTERACT and can_move: # don't move if interacting
 		move_and_collide(dir * speed)	
 		
 	lastdir = dir
@@ -109,6 +109,9 @@ func _physics_process(delta):
 
 func _on_animated_sprite_2d_animation_finished():
 	# Change states if needed once animations finish
+	
+	# interaction handler
+	# checks what we're interacting with and how to proceed
 	if curstate == State.INTERACT:
 		if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
 			if num_keys == 2:	

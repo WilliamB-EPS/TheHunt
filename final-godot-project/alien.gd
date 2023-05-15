@@ -9,6 +9,7 @@ var state_time = 0.0
 var curstate = State.ROAM
 var just_entered_roam = true
 
+# prep by connecting to the tilemap and setting the initial target position
 func _ready():
 	navigation_agent.set_navigation_map(map)
 	curstate = State.ROAM
@@ -17,17 +18,22 @@ func _ready():
 func switch_to(new_state: State):
 	curstate = new_state
 	state_time = 0.0
+	# when we attack, stop the player from moving
 	if new_state == State.ATTACK:	
 		player.can_move = false
 		$AnimatedSprite2D.frame = 0
 		$AnimatedSprite2D.play("attack")
+	# move slower when roaming
 	elif new_state == State.ROAM:
 		just_entered_roam = true
 		movement_speed = 100.0
+	# move faster when tracking
 	elif new_state == State.TRACK:
 		movement_speed = 180.0
 
 func _physics_process(delta):
+	
+	# state depends on distance from player
 	if curstate == State.TRACK and (player.position - self.position).length() < 100:
 		switch_to(State.ATTACK)
 	if curstate == State.ROAM and (player.position - self.position).length() < 400:
@@ -38,12 +44,13 @@ func _physics_process(delta):
 	
 	if curstate == State.TRACK:
 		navigation_agent.target_position = player.position
+	# if we're roaming, get a new random position every 10 seconds
 	elif curstate == State.ROAM and (state_time > 10.0 or just_entered_roam):
 		navigation_agent.set_target_position(Vector2(100 + randi() % 6000, 80 + randi() % 1000))
 		state_time = 0
 		just_entered_roam = false
 		
-	
+	# navigation2d movement (inspired by Godot documentation)
 	if navigation_agent.distance_to_target() > 2:
 		var new_velocity: Vector2 = navigation_agent.get_next_path_position() - global_position
 		new_velocity = new_velocity.normalized() * movement_speed
@@ -64,6 +71,8 @@ func _physics_process(delta):
 func _on_animated_sprite_2d_animation_finished():
 	# Change states if needed once animations finish
 	if curstate == State.ATTACK:
+		# game is over (one hit kills)
+		# lockup the alien and player
 		player.queue_free()
 		self.queue_free()
 		$".."/CanvasLayer/PlayerUI.lose_screen()
