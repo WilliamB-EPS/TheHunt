@@ -30,12 +30,12 @@ func switch_to(new_state: State):
 		movement_speed = 100.0
 	# move faster when tracking
 	elif new_state == State.TRACK:
-		movement_speed = 180.0
+		movement_speed = 170.0
 
 func _physics_process(delta):
 	
 	# state depends on distance from player
-	if curstate == State.TRACK and (player.position - self.position).length() < 100:
+	if curstate == State.TRACK and (player.position - self.position).length() < 70:
 		switch_to(State.ATTACK)
 	if curstate == State.ROAM and (player.position - self.position).length() < 400:
 		switch_to(State.TRACK)
@@ -54,7 +54,6 @@ func _physics_process(delta):
 	if navigation_agent.distance_to_target() > 2:
 		var new_velocity: Vector2 = navigation_agent.get_next_path_position() - global_position
 		new_velocity = new_velocity.normalized() * movement_speed
-		
 		if curstate != State.ATTACK:
 			if new_velocity.x < 0:
 				$AnimatedSprite2D.flip_h = true
@@ -87,7 +86,7 @@ func _on_animated_sprite_2d_animation_finished():
 	if curstate == State.ATTACK:
 		# game is over (one hit kills)
 		# lockup the alien and player
-		player.queue_free()
 		self.queue_free()
+		player.queue_free()
 		$".."/CanvasLayer/PlayerUI.lose_screen()
 		switch_to(State.TRACK)
