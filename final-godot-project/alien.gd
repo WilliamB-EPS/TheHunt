@@ -90,6 +90,6 @@ func _on_animated_sprite_2d_animation_finished():
 	if curstate == State.ATTACK:
 		# game is over (one hit kills)
 		# lockup the alien and player
+		$".."/AnimationPlayer.play("shader_death")
+		await $".."/AnimationPlayer.animation_finished
 		$".."/CanvasLayer/PlayerUI.lose_screen()
-		player.visible = false
-		self.visible = false
