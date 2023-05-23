@@ -115,8 +115,8 @@ func _on_animated_sprite_2d_animation_finished():
 	if curstate == State.INTERACT:
 		if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
 			if num_keys == 2:	
-				$".."/Alien.queue_free()
-				self.queue_free()
+				$".."/Alien.visible = false
+				self.visible = false
 				$".."/CanvasLayer/PlayerUI.game_win()
 			else:
 				await $".."/CanvasLayer/PlayerUI.reqs_message()	

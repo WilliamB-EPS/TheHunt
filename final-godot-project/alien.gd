@@ -34,13 +34,17 @@ func switch_to(new_state: State):
 
 func _physics_process(delta):
 	
+	print(curstate)
+	
 	# state depends on distance from player
-	if curstate == State.TRACK and (player.position - self.position).length() < 70:
-		switch_to(State.ATTACK)
-	if curstate == State.ROAM and (player.position - self.position).length() < 400:
-		switch_to(State.TRACK)
-	elif curstate == State.TRACK and (player.position - self.position).length() >= 500:
-		switch_to(State.ROAM)
+	if curstate == State.TRACK:
+		if (player.position - self.position).length() < 70:
+			switch_to(State.ATTACK)
+		elif (player.position - self.position).length() >= 500:
+			switch_to(State.ROAM)
+	if curstate == State.ROAM:
+		if (player.position - self.position).length() < 400:
+			switch_to(State.TRACK)
 
 	if curstate == State.TRACK:
 		navigation_agent.target_position = player.position
@@ -86,7 +90,6 @@ func _on_animated_sprite_2d_animation_finished():
 	if curstate == State.ATTACK:
 		# game is over (one hit kills)
 		# lockup the alien and player
-		self.queue_free()
-		player.queue_free()
 		$".."/CanvasLayer/PlayerUI.lose_screen()
-		switch_to(State.TRACK)
+		player.visible = false
+		self.visible = false

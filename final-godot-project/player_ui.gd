@@ -28,22 +28,22 @@ func set_num_keys(numkeys):
 	
 func show_blank_message():
 	$UpdateUI.visible = true
-	$UpdateUI/Label.text = "Empty box - no keys"
+	$UpdateUI/Label.text = "EMPTY BOX. NO KEYS"
 	await get_tree().create_timer(1).timeout
 	$UpdateUI.visible = false
 
 func lose_screen():
 	$UpdateUI.visible = true
-	$UpdateUI/Label.text = "You died. Game over"
+	$UpdateUI/Label.text = "YOU DIED. GAME OVER"
 	
 func game_win():
 	$UpdateUI.visible = true
-	$UpdateUI/Label.text = "You won! Game over"
+	$UpdateUI/Label.text = "YOU WON! GAME OVER"
 	
 func reqs_message():
 	hide_interact()
 	$UpdateUI.visible = true
-	$UpdateUI/Label.text = "Insufficent resources"
+	$UpdateUI/Label.text = "INSUFFICIENT RESOURCES"
 	await get_tree().create_timer(1).timeout
 	show_interact()
 	$UpdateUI.visible = false
