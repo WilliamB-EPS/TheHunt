@@ -8,11 +8,11 @@ enum State {ROAM, TRACK, ATTACK}
 var state_time = 0.0
 var curstate = State.ROAM
 var just_entered_roam = true
+var prev_pos = self.position
 
 # prep by connecting to the tilemap and setting the initial target position
 func _ready():
 	navigation_agent.set_navigation_map(map)
-	curstate = State.ROAM
 	navigation_agent.set_target_position(Vector2(100 + randi() % 6000, 80 + randi() % 1000))
 	
 	
@@ -33,9 +33,6 @@ func switch_to(new_state: State):
 		movement_speed = 170.0
 
 func _physics_process(delta):
-	
-	print(curstate)
-	
 	# state depends on distance from player
 	if curstate == State.TRACK:
 		if (player.position - self.position).length() < 70:
@@ -55,7 +52,7 @@ func _physics_process(delta):
 		just_entered_roam = false
 		
 	# navigation2d movement (inspired by Godot documentation)
-	if navigation_agent.distance_to_target() > 2:
+	if navigation_agent.distance_to_target() > 10:
 		var new_velocity: Vector2 = navigation_agent.get_next_path_position() - global_position
 		new_velocity = new_velocity.normalized() * movement_speed
 		if curstate != State.ATTACK:
@@ -80,7 +77,8 @@ func _physics_process(delta):
 		else:
 			$AnimatedSprite2D.flip_h = false
 			$AnimatedSprite2D.play("idle")
-		
+			
+	prev_pos = self.position
 
 	state_time += delta
 		
