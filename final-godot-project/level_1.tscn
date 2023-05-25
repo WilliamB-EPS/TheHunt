@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dji80fxxoqmqx"]
+[gd_scene load_steps=22 format=3 uid="uid://dji80fxxoqmqx"]
 
 [ext_resource type="Texture2D" uid="uid://b0r10ehnksn0p" path="res://assets/space_station_background.png" id="1_58isp"]
+[ext_resource type="Script" path="res://level_1.gd" id="1_ajrfp"]
 [ext_resource type="Texture2D" uid="uid://dg7rx3120burl" path="res://assets/space_station_objects.png" id="2_is5oq"]
 [ext_resource type="PackedScene" uid="uid://bq0sthw36lyaw" path="res://player.tscn" id="3_1c8jy"]
 [ext_resource type="PackedScene" uid="uid://diiu36ufg6vg5" path="res://alien.tscn" id="4_fkolu"]
@@ -38679,6 +38680,21 @@ sources/1 = SubResource("TileSetAtlasSource_ivuv3")
 shader = ExtResource("4_xayyw")
 shader_parameter/input = 1.5
 
+[sub_resource type="Animation" id="Animation_tx14o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player/LightingShader:material:shader_parameter/input")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5]
+}
+
 [sub_resource type="Animation" id="Animation_c5hkn"]
 resource_name = "shader_death"
 tracks/0/type = "value"
@@ -38706,21 +38722,6 @@ tracks/1/keys = {
 "values": [1.5, 2.08165e-12]
 }
 
-[sub_resource type="Animation" id="Animation_tx14o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Player/LightingShader:material:shader_parameter/input")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.5]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ij7kk"]
 _data = {
 "RESET": SubResource("Animation_tx14o"),
@@ -38728,6 +38729,7 @@ _data = {
 }
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_ajrfp")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-29, 14)
@@ -38777,7 +38779,7 @@ texture = ExtResource("4_kt7ei")
 offset_left = -576.0
 offset_right = -135.0
 
-[node name="InteractObject" parent="." instance=ExtResource("6_rxem0")]
+[node name="InteractObject1" parent="." instance=ExtResource("6_rxem0")]
 position = Vector2(978, 122)
 scale = Vector2(18.4409, 14.749)
 

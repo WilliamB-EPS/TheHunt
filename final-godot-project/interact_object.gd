@@ -20,4 +20,12 @@ func _on_body_exited(body):
 		$".."/CanvasLayer/PlayerUI.hide_interact()
 		$".."/Player.curr_interact_area = null
 		
+func set_type(newtype):
+	if newtype == "KEY":
+		self.mytype = type.KEY
+	elif newtype == "BLANK":
+		self.mytype = type.BLANK
+	else:
+		assert(1 == 0, "INVALID TYPE ARGUMENT")
+	
 	
