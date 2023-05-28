@@ -114,7 +114,7 @@ func _on_animated_sprite_2d_animation_finished():
 	# checks what we're interacting with and how to proceed
 	if curstate == State.INTERACT:
 		if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
-			if num_keys == 2:	
+			if num_keys >= 2:	
 				$".."/Alien.visible = false
 				self.visible = false
 				$".."/CanvasLayer/PlayerUI.game_win()

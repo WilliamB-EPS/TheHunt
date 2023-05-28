@@ -1,15 +1,180 @@
-[gd_scene format=3 uid="uid://c47y0fo7qh8ik"]
+[gd_scene load_steps=12 format=3 uid="uid://c47y0fo7qh8ik"]
+
+[ext_resource type="VideoStream" path="res://assets/space-vid-wee.ogv" id="1_khrpe"]
+[ext_resource type="Script" path="res://main_menu.gd" id="1_ocoxo"]
+[ext_resource type="Texture2D" uid="uid://c3inq8jt1877h" path="res://assets/MainPanel01.png" id="2_27jcw"]
+[ext_resource type="Texture2D" uid="uid://cv1l5f5kkl80p" path="res://assets/Button13.png" id="3_bywmp"]
+[ext_resource type="Texture2D" uid="uid://dkj0vatbe1dqh" path="res://assets/Button16.png" id="4_cfdrb"]
+
+[sub_resource type="Theme" id="Theme_xlrj1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r7m2s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7oh73"]
+
+[sub_resource type="Animation" id="Animation_41e6q"]
+resource_name = "message_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_odyb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t45fw"]
+_data = {
+"RESET": SubResource("Animation_odyb7"),
+"message_fade_in": SubResource("Animation_41e6q")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_ocoxo")
 
-[node name="Button" type="Button" parent="."]
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0
-offset_left = 531.0
-offset_top = 295.0
-offset_right = 627.0
-offset_bottom = 326.0
-text = "Start Game"
+offset_right = 1920.0
+offset_bottom = 1088.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("1_khrpe")
+volume_db = -1.1
+autoplay = true
+
+[node name="Control2" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainPanel01" type="Sprite2D" parent="Control2"]
+modulate = Color(1, 1, 1, 0.733333)
+position = Vector2(560, 319)
+texture = ExtResource("2_27jcw")
+
+[node name="Button13" type="Sprite2D" parent="Control2"]
+position = Vector2(551, 503)
+scale = Vector2(1.85238, 1.88095)
+texture = ExtResource("3_bywmp")
+
+[node name="Label2" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 58.0
+offset_right = 666.0
+offset_bottom = 108.0
+theme = SubResource("Theme_xlrj1")
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_color = Color(0.239216, 0.713726, 0.67451, 1)
+theme_override_font_sizes/font_size = 14
+text = "NEW MESSAGE"
+
+[node name="Label3" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 284.0
+offset_top = 103.0
+offset_right = 829.0
+offset_bottom = 195.0
+theme_override_colors/font_color = Color(1, 0.423529, 0, 1)
+theme_override_font_sizes/font_size = 59
+text = "THE HUNT"
+horizontal_alignment = 1
+
+[node name="Button20" type="Sprite2D" parent="Control2"]
+position = Vector2(452, 252)
+scale = Vector2(0.831816, 2.08333)
+texture = ExtResource("4_cfdrb")
+
+[node name="Button21" type="Sprite2D" parent="Control2"]
+position = Vector2(645, 324)
+scale = Vector2(0.831816, 2.08333)
+texture = ExtResource("4_cfdrb")
+
+[node name="Button22" type="Sprite2D" parent="Control2"]
+position = Vector2(453, 326)
+scale = Vector2(0.831816, 2.08333)
+texture = ExtResource("4_cfdrb")
+
+[node name="Button23" type="Sprite2D" parent="Control2"]
+position = Vector2(644, 253)
+scale = Vector2(0.831816, 2.08333)
+texture = ExtResource("4_cfdrb")
+
+[node name="Button1" type="Button" parent="Control2"]
+offset_left = 383.0
+offset_top = 230.0
+offset_right = 521.0
+offset_bottom = 274.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_r7m2s")
+text = "LEVEL 1"
+
+[node name="Button2" type="Button" parent="Control2"]
+offset_left = 575.0
+offset_top = 231.0
+offset_right = 713.0
+offset_bottom = 275.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_r7m2s")
+text = "LEVEL 2"
+
+[node name="Button3" type="Button" parent="Control2"]
+offset_left = 384.0
+offset_top = 304.0
+offset_right = 522.0
+offset_bottom = 348.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_r7m2s")
+text = "LEVEL 3"
+
+[node name="Button4" type="Button" parent="Control2"]
+offset_left = 576.0
+offset_top = 302.0
+offset_right = 714.0
+offset_bottom = 346.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_r7m2s")
+text = "LEVEL 4"
+
+[node name="Button5" type="Button" parent="Control2"]
+offset_left = 455.0
+offset_top = 482.0
+offset_right = 649.0
+offset_bottom = 524.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7oh73")
+text = "QUIT GAME"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t45fw")
+}
+
+[connection signal="pressed" from="Control2/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="Control2/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Control2/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Control2/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Control2/Button5" to="." method="_on_button_5_pressed"]

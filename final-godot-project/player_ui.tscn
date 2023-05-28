@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dyujcx5y67vgr"]
+[gd_scene load_steps=15 format=3 uid="uid://dyujcx5y67vgr"]
 
 [ext_resource type="Script" path="res://player_ui.gd" id="1_33b3k"]
 [ext_resource type="Texture2D" uid="uid://dkj0vatbe1dqh" path="res://assets/Button16.png" id="2_wwmey"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://da2a0csdd4a0y" path="res://assets/Button09.png" id="3_5d6wl"]
 [ext_resource type="Texture2D" uid="uid://x2rltromf75a" path="res://assets/key.png" id="4_rlt01"]
 [ext_resource type="Texture2D" uid="uid://cv1l5f5kkl80p" path="res://assets/Button13.png" id="6_tdmc6"]
+[ext_resource type="Texture2D" uid="uid://esgxeub4on8j" path="res://assets/MainPanel02.png" id="7_np4he"]
 
 [sub_resource type="FontFile" id="FontFile_qy1wm"]
 subpixel_positioning = 0
@@ -291,18 +292,6 @@ default_font_size = 25
 
 [sub_resource type="Animation" id="Animation_jv2mm"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_ih585"]
 resource_name = "fade_in"
@@ -403,7 +392,7 @@ scale = Vector2(0.205078, 0.198595)
 texture = ExtResource("4_rlt01")
 
 [node name="UpdateUI" type="Control" parent="."]
-modulate = Color(1, 1, 1, 0)
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -460,4 +449,73 @@ libraries = {
 "": SubResource("AnimationLibrary_10446")
 }
 
+[node name="ExitScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainPanel02" type="Sprite2D" parent="ExitScreen"]
+position = Vector2(561, 331)
+scale = Vector2(1.41598, 1.13477)
+texture = ExtResource("7_np4he")
+
+[node name="Label2" type="Label" parent="ExitScreen"]
+layout_mode = 2
+offset_left = 486.0
+offset_top = 122.0
+offset_right = 640.0
+offset_bottom = 172.0
+theme = SubResource("Theme_obtms")
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_color = Color(1, 0.423529, 0, 1)
+theme_override_font_sizes/font_size = 34
+text = "MESSAGE"
+
+[node name="Button13" type="Sprite2D" parent="ExitScreen"]
+position = Vector2(565, 497)
+scale = Vector2(2.60952, 2.47619)
+texture = ExtResource("6_tdmc6")
+
+[node name="quit_btn" type="Button" parent="ExitScreen"]
+layout_mode = 2
+offset_left = 429.0
+offset_top = 471.0
+offset_right = 701.0
+offset_bottom = 523.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d4nyb")
+text = "QUIT TO MAIN MENU"
+
+[node name="Label" type="Label" parent="ExitScreen"]
+layout_mode = 2
+offset_left = 288.0
+offset_top = 197.0
+offset_right = 833.0
+offset_bottom = 409.0
+theme_override_font_sizes/font_size = 20
+text = "OBJECTIVES:
+
+1. AVOID THE ALIEN
+2. COLLECT 2 KEYS
+3. MAKE IT ACROSS THE SHIP
+"
+horizontal_alignment = 1
+
+[node name="Button14" type="Sprite2D" parent="ExitScreen"]
+position = Vector2(566, 418)
+scale = Vector2(2.60952, 2.47619)
+texture = ExtResource("6_tdmc6")
+
+[node name="continue_btn" type="Button" parent="ExitScreen"]
+offset_left = 430.0
+offset_top = 392.0
+offset_right = 702.0
+offset_bottom = 444.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d4nyb")
+text = "KEEP PLAYING"
+
 [connection signal="pressed" from="UpdateUI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ExitScreen/quit_btn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="ExitScreen/continue_btn" to="." method="_on_continue_btn_pressed"]

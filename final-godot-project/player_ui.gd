@@ -1,20 +1,19 @@
 extends Control
 
 
-# Called when athe node enters the scene tree for the first time.
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	call_deferred("actor_setup")
-	
-# bad to call await in ready(), so moving setup stuff here
-# displays story background (will be more detailed later)
-func actor_setup():
-	await get_tree().physics_frame
 	$".."/".."/Player.can_move = false
 	$InteractContainer.visible = false
+	$ExitScreen.visible = false
 	$UpdateUI.visible = true
 	$InventoryContainer/Item1.visible = false
 	$InventoryContainer/Item2.visible = false
 	$InventoryContainer/Item3.visible = false
+
+func _physics_process(delta):
+	if Input.is_action_pressed("showui") and $".."/".."/Player.can_move:
+		$ExitScreen.visible = true
 
 func show_interact():
 	$InteractContainer.visible = true
@@ -29,7 +28,6 @@ func set_num_keys(numkeys):
 func show_blank_message():
 	$UpdateUI.visible = true
 	$UpdateUI/Label.text = "EMPTY BOX. NO KEYS"
-	await get_tree().create_timer(1).timeout
 	$UpdateUI.visible = false
 
 func lose_screen():
@@ -44,11 +42,17 @@ func reqs_message():
 	hide_interact()
 	$UpdateUI.visible = true
 	$UpdateUI/Label.text = "INSUFFICIENT RESOURCES"
-	await get_tree().create_timer(1).timeout
 	show_interact()
 	$UpdateUI.visible = false
-
 
 func _on_button_pressed():
 	$UpdateUI.visible = false
 	$".."/".."/Player.can_move = true
+
+
+func _on_quit_btn_pressed():
+	get_tree().change_scene_to_file("res://main_menu.tscn")
+
+
+func _on_continue_btn_pressed():
+	$ExitScreen.visible = false
