@@ -8,6 +8,7 @@ var mytype = type.KEY # set the type of this interact object in the editor
 
 func _on_body_entered(body):
 	if body.get_name() == "Player":
+		print("hi")
 		# opened objects can't be interacted with
 		if self.mytype != type.OPENED:
 			var playerui = $".."/CanvasLayer/PlayerUI.show_interact()

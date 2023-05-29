@@ -7,6 +7,8 @@ func _ready():
 	$InteractContainer.visible = false
 	$ExitScreen.visible = false
 	$UpdateUI.visible = true
+	$UpdateUI/quit_btn_art.visible = false
+	$UpdateUI/quit_btn2.visible = false
 	$InventoryContainer/Item1.visible = false
 	$InventoryContainer/Item2.visible = false
 	$InventoryContainer/Item3.visible = false
@@ -28,22 +30,27 @@ func set_num_keys(numkeys):
 func show_blank_message():
 	$UpdateUI.visible = true
 	$UpdateUI/Label.text = "EMPTY BOX. NO KEYS"
-	$UpdateUI.visible = false
 
 func lose_screen():
 	$UpdateUI.visible = true
-	$UpdateUI/Label.text = "YOU DIED. GAME OVER"
+	$UpdateUI/quit_btn_art.visible = true
+	$UpdateUI/quit_btn2.visible = true
+	$UpdateUI/Button.visible = false
+	$UpdateUI/Button13.visible = false
+	$UpdateUI/Label.text = "YOU DIED. RESTART THIS LEVEL."
 	
 func game_win():
 	$UpdateUI.visible = true
-	$UpdateUI/Label.text = "YOU WON! GAME OVER"
+	$UpdateUI/quit_btn_art.visible = true
+	$UpdateUI/quit_btn2.visible = true
+	$UpdateUI/Button.visible = false
+	$UpdateUI/Button13.visible = false
+	$UpdateUI/Label.text = "YOU WON! LEVEL COMPLETE."
 	
 func reqs_message():
 	hide_interact()
 	$UpdateUI.visible = true
 	$UpdateUI/Label.text = "INSUFFICIENT RESOURCES"
-	show_interact()
-	$UpdateUI.visible = false
 
 func _on_button_pressed():
 	$UpdateUI.visible = false

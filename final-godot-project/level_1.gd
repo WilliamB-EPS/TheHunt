@@ -12,10 +12,6 @@ func _ready():
 	var idx3 = random.randi_range(1, 6)
 	while idx3 == idx2 or idx3 == idx1 :
 		idx3 = random.randi_range(1, 6)
-		
-	print(idx1)
-	print(idx2)
-	print(idx3)
 
 	for i in range(1, 7):
 		var interact_node = get_node("InteractObject" + str(i))

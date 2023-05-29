@@ -68,6 +68,7 @@ func update_movement_animation():
 			$AnimatedSprite2D.flip_h = false
 
 func _physics_process(delta):
+	print(can_move)
 	var dir = Vector2.ZERO
 	
 	# Setup a movement vector based on keyboard input
@@ -82,7 +83,7 @@ func _physics_process(delta):
 		
 	# Apply that movement and save the last vectors as part of our state so we can select which
 	# animation to play layer
-	if curstate != State.INTERACT and can_move: # don't move if interacting
+	if curstate != State.INTERACT and self.can_move == true: # don't move if interacting
 		move_and_collide(dir * speed)	
 		
 	lastdir = dir
@@ -114,10 +115,12 @@ func _on_animated_sprite_2d_animation_finished():
 	# checks what we're interacting with and how to proceed
 	if curstate == State.INTERACT:
 		if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
-			if num_keys >= 2:	
-				$".."/Alien.visible = false
-				self.visible = false
+			if num_keys >= 0:	
+				$".."/CanvasLayer/PlayerUI.hide_interact()
+				$".."/AnimationPlayer.play("shader_death")
+				await $".."/AnimationPlayer.animation_finished
 				$".."/CanvasLayer/PlayerUI.game_win()
+				Globals.curr_level += 1
 			else:
 				await $".."/CanvasLayer/PlayerUI.reqs_message()	
 		else:

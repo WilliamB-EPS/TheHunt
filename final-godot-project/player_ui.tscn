@@ -449,6 +449,21 @@ libraries = {
 "": SubResource("AnimationLibrary_10446")
 }
 
+[node name="quit_btn_art" type="Sprite2D" parent="UpdateUI"]
+position = Vector2(571, 434)
+scale = Vector2(2.60952, 2.47619)
+texture = ExtResource("6_tdmc6")
+
+[node name="quit_btn2" type="Button" parent="UpdateUI"]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 408.0
+offset_right = 707.0
+offset_bottom = 460.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d4nyb")
+text = "QUIT TO MAIN MENU"
+
 [node name="ExitScreen" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -508,6 +523,7 @@ scale = Vector2(2.60952, 2.47619)
 texture = ExtResource("6_tdmc6")
 
 [node name="continue_btn" type="Button" parent="ExitScreen"]
+layout_mode = 0
 offset_left = 430.0
 offset_top = 392.0
 offset_right = 702.0
@@ -517,5 +533,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_d4nyb")
 text = "KEEP PLAYING"
 
 [connection signal="pressed" from="UpdateUI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UpdateUI/quit_btn2" to="." method="_on_quit_btn_pressed"]
 [connection signal="pressed" from="ExitScreen/quit_btn" to="." method="_on_quit_btn_pressed"]
 [connection signal="pressed" from="ExitScreen/continue_btn" to="." method="_on_continue_btn_pressed"]
