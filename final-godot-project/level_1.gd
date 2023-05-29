@@ -9,13 +9,10 @@ func _ready():
 	var idx2 = random.randi_range(1, 6)
 	while idx1 == idx2:
 		idx2 = random.randi_range(1, 6)
-	var idx3 = random.randi_range(1, 6)
-	while idx3 == idx2 or idx3 == idx1 :
-		idx3 = random.randi_range(1, 6)
 
 	for i in range(1, 7):
 		var interact_node = get_node("InteractObject" + str(i))
-		if i == idx1 or i == idx2 or i == idx3:
+		if i == idx1 or i == idx2:
 			interact_node.set_type("KEY")
 		else:
 			interact_node.set_type("BLANK")

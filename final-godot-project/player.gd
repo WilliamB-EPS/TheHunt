@@ -115,7 +115,7 @@ func _on_animated_sprite_2d_animation_finished():
 	# checks what we're interacting with and how to proceed
 	if curstate == State.INTERACT:
 		if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
-			if num_keys >= 0:	
+			if num_keys >= 2:	
 				$".."/CanvasLayer/PlayerUI.hide_interact()
 				$".."/AnimationPlayer.play("shader_death")
 				await $".."/AnimationPlayer.animation_finished
