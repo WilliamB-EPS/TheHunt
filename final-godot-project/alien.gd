@@ -10,10 +10,19 @@ var curstate = State.ROAM
 var just_entered_roam = true
 var prev_pos = self.position
 
+@export
+var xmin = 100
+@export
+var xmax = 6000
+@export
+var ymin = 80
+@export
+var ymax = 1000
+
 # prep by connecting to the tilemap and setting the initial target position
 func _ready():
 	navigation_agent.set_navigation_map(map)
-	navigation_agent.set_target_position(Vector2(100 + randi() % 6000, 80 + randi() % 1000))
+	navigation_agent.set_target_position(Vector2(xmin + randi() % (xmax - xmin), ymin + randi() % (ymax - ymin)))
 	
 	
 func switch_to(new_state: State):
@@ -47,7 +56,7 @@ func _physics_process(delta):
 		navigation_agent.target_position = player.position
 	# if we're roaming, get a new random position every 10 seconds
 	elif curstate == State.ROAM and (state_time > 20.0):
-		navigation_agent.set_target_position(Vector2(100 + randi() % 6000, 80 + randi() % 1000))
+		navigation_agent.set_target_position(Vector2(xmin + randi() % (xmax - xmin), ymin + randi() % (ymax - ymin)))
 		state_time = 0
 		just_entered_roam = false
 		
