@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://dyujcx5y67vgr"]
+[gd_scene load_steps=16 format=3 uid="uid://dyujcx5y67vgr"]
 
 [ext_resource type="Script" path="res://player_ui.gd" id="1_33b3k"]
 [ext_resource type="Texture2D" uid="uid://dkj0vatbe1dqh" path="res://assets/Button16.png" id="2_wwmey"]
 [ext_resource type="Texture2D" uid="uid://bemcledhlhobj" path="res://assets/MainPanel03.png" id="3_3n5nv"]
 [ext_resource type="Texture2D" uid="uid://da2a0csdd4a0y" path="res://assets/Button09.png" id="3_5d6wl"]
 [ext_resource type="Texture2D" uid="uid://x2rltromf75a" path="res://assets/key.png" id="4_rlt01"]
+[ext_resource type="Texture2D" uid="uid://bqb0se2nc3oov" path="res://assets/keycard.png" id="5_jw6nt"]
 [ext_resource type="Texture2D" uid="uid://cv1l5f5kkl80p" path="res://assets/Button13.png" id="6_tdmc6"]
 [ext_resource type="Texture2D" uid="uid://esgxeub4on8j" path="res://assets/MainPanel02.png" id="7_np4he"]
 
@@ -333,6 +334,7 @@ size_flags_vertical = 4
 script = ExtResource("1_33b3k")
 
 [node name="InteractContainer" type="HBoxContainer" parent="."]
+visible = false
 texture_filter = 1
 layout_mode = 1
 offset_left = 436.0
@@ -367,6 +369,7 @@ scale = Vector2(1.61268, 1.76788)
 texture = ExtResource("3_5d6wl")
 
 [node name="Item1" type="Sprite2D" parent="InventoryContainer"]
+visible = false
 position = Vector2(316, 50.8265)
 scale = Vector2(0.205078, 0.198595)
 texture = ExtResource("4_rlt01")
@@ -377,6 +380,7 @@ scale = Vector2(1.61268, 1.76788)
 texture = ExtResource("3_5d6wl")
 
 [node name="Item2" type="Sprite2D" parent="InventoryContainer"]
+visible = false
 position = Vector2(186, 51.8431)
 scale = Vector2(0.205078, 0.198595)
 texture = ExtResource("4_rlt01")
@@ -387,12 +391,12 @@ scale = Vector2(1.61268, 1.76788)
 texture = ExtResource("3_5d6wl")
 
 [node name="Item3" type="Sprite2D" parent="InventoryContainer"]
-position = Vector2(56.9999, 52.8596)
-scale = Vector2(0.205078, 0.198595)
-texture = ExtResource("4_rlt01")
+visible = false
+position = Vector2(59, 45.7439)
+scale = Vector2(0.224138, 0.227843)
+texture = ExtResource("5_jw6nt")
 
 [node name="UpdateUI" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -450,11 +454,13 @@ libraries = {
 }
 
 [node name="quit_btn_art" type="Sprite2D" parent="UpdateUI"]
+visible = false
 position = Vector2(571, 434)
 scale = Vector2(2.60952, 2.47619)
 texture = ExtResource("6_tdmc6")
 
 [node name="quit_btn2" type="Button" parent="UpdateUI"]
+visible = false
 layout_mode = 0
 offset_left = 435.0
 offset_top = 408.0
@@ -465,6 +471,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_d4nyb")
 text = "QUIT TO MAIN MENU"
 
 [node name="ExitScreen" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

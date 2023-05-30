@@ -8,7 +8,6 @@ var lastmovedir: Vector2 = Vector2.ZERO
 var lastdir: Vector2 = Vector2.ZERO
 var state_time = 0.0
 var curr_interact_area = null
-var num_keys = 0
 var can_move = true
 
 # Called when the node enters the scene tree for the first time.
@@ -68,7 +67,6 @@ func update_movement_animation():
 			$AnimatedSprite2D.flip_h = false
 
 func _physics_process(delta):
-	print(can_move)
 	var dir = Vector2.ZERO
 	
 	# Setup a movement vector based on keyboard input
@@ -114,23 +112,35 @@ func _on_animated_sprite_2d_animation_finished():
 	# interaction handler
 	# checks what we're interacting with and how to proceed
 	if curstate == State.INTERACT:
-		if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
-			if num_keys >= 2:	
-				$".."/CanvasLayer/PlayerUI.hide_interact()
-				$".."/AnimationPlayer.play("shader_death")
-				await $".."/AnimationPlayer.animation_finished
-				$".."/CanvasLayer/PlayerUI.game_win()
-				Globals.curr_level += 1
+		
+		if Globals.curr_level == 1:
+			
+			if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
+				if Globals.num_keys >= 2:	
+					$".."/CanvasLayer/PlayerUI.hide_interact()
+					$".."/AnimationPlayer.play("shader_death")
+					await $".."/AnimationPlayer.animation_finished
+					$".."/CanvasLayer/PlayerUI.game_win()
+					Globals.curr_level = 2
+				else:
+					await $".."/CanvasLayer/PlayerUI.reqs_message()	
 			else:
-				await $".."/CanvasLayer/PlayerUI.reqs_message()	
-		else:
-			$".."/CanvasLayer/PlayerUI.hide_interact()
-			if self.curr_interact_area.mytype == self.curr_interact_area.type.KEY:		
-				num_keys += 1
-				$".."/CanvasLayer/PlayerUI.set_num_keys(num_keys)
-			elif self.curr_interact_area.mytype == self.curr_interact_area.type.BLANK:	
-				$".."/CanvasLayer/PlayerUI.show_blank_message()	
-			self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED		
+				$".."/CanvasLayer/PlayerUI.hide_interact()
+				if self.curr_interact_area.mytype == self.curr_interact_area.type.KEY:		
+					Globals.num_keys += 1
+					$".."/CanvasLayer/PlayerUI.set_num_keys(Globals.num_keys)
+				elif self.curr_interact_area.mytype == self.curr_interact_area.type.BLANK:	
+					$".."/CanvasLayer/PlayerUI.show_blank_message()	
+				self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED	
+		
+		if Globals.curr_level == 2:	
+			if self.curr_interact_area.mytype == self.curr_interact_area.type.NPC:
+				$".."/CanvasLayer/PlayerUI.npc_interact()
+				self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED
+			elif self.curr_interact_area.mytype == self.curr_interact_area.type.DOOR:
+				$".."/CanvasLayer/PlayerUI.game_win()
+				Globals.curr_level = 3
+
 		self.curr_interact_area = null
 		if lastdir.length() > 0:
 			switch_to(State.MOVE)

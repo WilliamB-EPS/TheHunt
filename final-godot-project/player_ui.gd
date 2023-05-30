@@ -4,14 +4,10 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$".."/".."/Player.can_move = false
-	$InteractContainer.visible = false
-	$ExitScreen.visible = false
+	if Globals.curr_level == 2:
+		$UpdateUI/Label.text = "THIS LEVEL HAS NO INSTRUCTIONS\nEXPLORE THE MAP TO FIND WHAT YOU\nNEED AND HOW TO ESCAPE."	
 	$UpdateUI.visible = true
-	$UpdateUI/quit_btn_art.visible = false
-	$UpdateUI/quit_btn2.visible = false
-	$InventoryContainer/Item1.visible = false
-	$InventoryContainer/Item2.visible = false
-	$InventoryContainer/Item3.visible = false
+	self.set_num_keys(Globals.num_keys)
 
 func _physics_process(delta):
 	if Input.is_action_pressed("showui") and $".."/".."/Player.can_move:
@@ -23,9 +19,15 @@ func show_interact():
 func hide_interact():
 	$InteractContainer.visible = false
 	
+func npc_interact():
+	$UpdateUI.visible = true
+	$UpdateUI/Label.text = "I'M A DIRECTION, A PLACE TO SEEK\nWHERE THE SUN SETS AND SHADOWS SNEAK\nNOT QUITE NORTH, OR EAST, YOU SEE\nBUT A CORNER OF THE COMPASS IS WHERE I'LL BE\nAND TAKE THIS KEYCARD, IF SO TO SEE"
+	get_node("InventoryContainer/Item3").visible = true
+	
 # increment num keys and show a message 
 func set_num_keys(numkeys):
-	get_node("InventoryContainer/Item" + str(numkeys)).visible = true
+	for i in range(1, numkeys + 1):
+		get_node("InventoryContainer/Item" + str(i)).visible = true
 	
 func show_blank_message():
 	$UpdateUI.visible = true
