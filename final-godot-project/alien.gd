@@ -43,19 +43,21 @@ func switch_to(new_state: State):
 
 func _physics_process(delta):
 	# state depends on distance from player
-	if curstate == State.TRACK:
+	if player.is_hiding == true:
+		switch_to(State.ROAM)
+	elif curstate == State.TRACK:
 		if (player.position - self.position).length() < 70:
 			switch_to(State.ATTACK)
 		elif (player.position - self.position).length() >= 500:
 			switch_to(State.ROAM)
-	if curstate == State.ROAM:
+	elif curstate == State.ROAM:
 		if (player.position - self.position).length() < 400:
 			switch_to(State.TRACK)
 
 	if curstate == State.TRACK:
 		navigation_agent.target_position = player.position
 	# if we're roaming, get a new random position every 10 seconds
-	elif curstate == State.ROAM and (state_time > 20.0):
+	elif curstate == State.ROAM and (state_time > 20.0 or just_entered_roam):
 		navigation_agent.set_target_position(Vector2(xmin + randi() % (xmax - xmin), ymin + randi() % (ymax - ymin)))
 		state_time = 0
 		just_entered_roam = false

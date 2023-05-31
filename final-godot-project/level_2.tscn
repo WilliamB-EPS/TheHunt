@@ -38938,6 +38938,7 @@ _data = {
 }
 
 [node name="Level2" type="Node2D"]
+scale = Vector2(1, 1.00258)
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-23, 203)
@@ -39017,4 +39018,4 @@ libraries = {
 [node name="InteractObject2" parent="." instance=ExtResource("9_2tue1")]
 position = Vector2(497, 2105)
 scale = Vector2(18.2742, 21.313)
-mytype = 5
+mytype = 3

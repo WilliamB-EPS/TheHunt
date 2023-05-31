@@ -9,10 +9,12 @@ var lastdir: Vector2 = Vector2.ZERO
 var state_time = 0.0
 var curr_interact_area = null
 var can_move = true
+var is_hiding = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.play("idle_down")	
+	Globals.curr_level = 3
 
 func switch_to(new_state: State):
 	curstate = new_state
@@ -65,7 +67,7 @@ func update_movement_animation():
 			$AnimatedSprite2D.play("walk_up")
 			$AnimatedSprite2D.flip_h = false
 
-func _physics_process(delta):
+func _physics_process(delta):	
 	var dir = Vector2.ZERO
 	
 	# Setup a movement vector based on keyboard input
@@ -131,17 +133,33 @@ func _on_animated_sprite_2d_animation_finished():
 				elif self.curr_interact_area.mytype == self.curr_interact_area.type.BLANK:	
 					$".."/CanvasLayer/PlayerUI.show_blank_message()	
 				self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED	
+				self.curr_interact_area = null
+
 		
-		if Globals.curr_level == 2:	
+		elif Globals.curr_level == 2:	
 			if self.curr_interact_area.mytype == self.curr_interact_area.type.NPC:
 				$".."/CanvasLayer/PlayerUI.npc_interact()
 				self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED
-			elif self.curr_interact_area.mytype == self.curr_interact_area.type.DOOR:
+				self.curr_interact_area = null
+			elif self.curr_interact_area.mytype == self.curr_interact_area.type.END:
 				$".."/CanvasLayer/PlayerUI.game_win()
 				Globals.curr_level = 3
-
-		self.curr_interact_area = null
+		
+		elif Globals.curr_level == 3:	
+			if self.curr_interact_area.mytype == self.curr_interact_area.type.CLOSET:
+				if Globals.num_keys >= 1:
+					$AnimatedSprite2D.visible = false
+					$".."/CanvasLayer/PlayerUI.show_hide_UI()
+					self.curr_interact_area = self.curr_interact_area.type.OPENED
+					self.can_move = false
+					self.curr_interact_area = null
+					self.is_hiding = true
+			elif self.curr_interact_area.mytype == self.curr_interact_area.type.END:
+				$".."/CanvasLayer/PlayerUI.game_win()
+				Globals.curr_level = 0
+	
 		if lastdir.length() > 0:
 			switch_to(State.MOVE)
 		else:
 			switch_to(State.IDLE)
+

@@ -1,6 +1,6 @@
 extends Area2D
 
-enum type {BLANK, KEY, OPENED, END, NPC, DOOR}
+enum type {BLANK, KEY, OPENED, END, NPC, CLOSET}
 
 @export 
 var mytype = type.KEY # set the type of this interact object in the editor
@@ -9,7 +9,7 @@ var mytype = type.KEY # set the type of this interact object in the editor
 func _on_body_entered(body):
 	if body.get_name() == "Player":
 		# opened objects can't be interacted with
-		if self.mytype == type.DOOR:
+		if self.mytype == type.END and Globals.curr_level == 2:
 			if $".."/CanvasLayer/PlayerUI/InventoryContainer/Item3.visible:
 				var playerui = $".."/CanvasLayer/PlayerUI.show_interact()
 				$".."/Player.curr_interact_area = self

@@ -397,6 +397,7 @@ scale = Vector2(0.224138, 0.227843)
 texture = ExtResource("5_jw6nt")
 
 [node name="UpdateUI" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -539,7 +540,63 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_d4nyb")
 text = "KEEP PLAYING"
 
+[node name="HidingUI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 375.0
+offset_top = 14.0
+offset_right = 415.0
+offset_bottom = 54.0
+
+[node name="MainPanel02" type="Sprite2D" parent="HidingUI"]
+position = Vector2(564.5, 321.5)
+scale = Vector2(1.22848, 0.583127)
+texture = ExtResource("7_np4he")
+
+[node name="Label2" type="Label" parent="HidingUI"]
+layout_mode = 2
+offset_left = 484.0
+offset_top = 214.0
+offset_right = 638.0
+offset_bottom = 264.0
+theme = SubResource("Theme_obtms")
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_color = Color(1, 0.423529, 0, 1)
+theme_override_font_sizes/font_size = 34
+text = "MESSAGE"
+
+[node name="Label" type="Label" parent="HidingUI"]
+layout_mode = 2
+offset_left = 389.0
+offset_top = 266.0
+offset_right = 734.0
+offset_bottom = 384.0
+theme_override_font_sizes/font_size = 20
+text = "YOU ARE CURRENTLY HIDING
+IN THE CLOSET. THE ALIEN CAN'T
+SEE OR ATTACK YOU HERE.
+"
+horizontal_alignment = 1
+
+[node name="Button14" type="Sprite2D" parent="HidingUI"]
+position = Vector2(564, 395)
+scale = Vector2(2.60952, 2.47619)
+texture = ExtResource("6_tdmc6")
+
+[node name="stop_hiding_btn" type="Button" parent="HidingUI"]
+layout_mode = 0
+offset_left = 428.0
+offset_top = 369.0
+offset_right = 700.0
+offset_bottom = 421.0
+scale = Vector2(1.00112, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d4nyb")
+text = "STOP HIDING"
+
 [connection signal="pressed" from="UpdateUI/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UpdateUI/quit_btn2" to="." method="_on_quit_btn_pressed"]
 [connection signal="pressed" from="ExitScreen/quit_btn" to="." method="_on_quit_btn_pressed"]
 [connection signal="pressed" from="ExitScreen/continue_btn" to="." method="_on_continue_btn_pressed"]
+[connection signal="pressed" from="HidingUI/stop_hiding_btn" to="." method="_on_stop_hiding_btn_pressed"]

@@ -3,12 +3,18 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$".."/".."/Player.can_move = false
 	if Globals.curr_level == 1:
 			Globals.num_keys = 0
 	elif Globals.curr_level == 2:
+		Globals.num_keys = 2
 		$UpdateUI/Label.text = "THIS LEVEL HAS NO INSTRUCTIONS\nEXPLORE THE MAP TO FIND WHAT YOU\nNEED AND HOW TO ESCAPE."	
 		$ExitScreen/Label.text =  "THERE ARE NO OBJECTIVES \nFOR THIS LEVEL.\n EXPLORE THE MAP TO FIND \nUT HOW TO PROCEED.\n GOOD LUCK."	
+	elif Globals.curr_level == 3:
+		Globals.num_keys = 2
+		get_node("InventoryContainer/Item3").visible = true
+		$UpdateUI/Label.text = "WELCOME TO THE FINAL LEVEL. TO WIN, MOVE\nTHROUGH THE MAZE AND FIND THE ESCAPE. \nYOU CAN SPEND 1 KEY TO HIDE IN A CLOSET,\nWHERE THE ALIEN CAN'T FIND YOU.\nGOOD LUCK"	
+		$ExitScreen/Label.text =  "OBJECTIVES: \n\n1. MOVE THORUGH THE MAZE \n2. FIND THE ENDING.\n3. HIDE IN CLOSETS TO AVOID THE ALIENS"	
+		
 	$UpdateUI.visible = true
 	self.set_num_keys(Globals.num_keys)
 
@@ -22,6 +28,13 @@ func show_interact():
 func hide_interact():
 	$InteractContainer.visible = false
 	
+func show_hide_UI():
+	self.hide_interact()
+	$HidingUI.visible = true
+	Globals.num_keys -= 1
+	set_num_keys(Globals.num_keys)
+
+	
 func npc_interact():
 	$UpdateUI.visible = true
 	$UpdateUI/Label.text = "I'M A DIRECTION, A PLACE TO SEEK\nWHERE THE SUN SETS AND SHADOWS SNEAK\nNOT QUITE NORTH, OR EAST, YOU SEE\nBUT A CORNER OF THE COMPASS IS WHERE I'LL BE\nAND TAKE THIS KEYCARD, IF SO TO SEE"
@@ -29,8 +42,14 @@ func npc_interact():
 	
 # increment num keys and show a message 
 func set_num_keys(numkeys):
-	for i in range(1, numkeys + 1):
-		get_node("InventoryContainer/Item" + str(i)).visible = true
+	if numkeys >= 1:
+		$InventoryContainer/Item1.visible = true
+		if numkeys >= 2:
+			$InventoryContainer/Item2.visible = true
+		else:
+			$InventoryContainer/Item2.visible = false
+	else: 
+		$InventoryContainer/Item1.visible = false
 	
 func show_blank_message():
 	$UpdateUI.visible = true
@@ -68,3 +87,10 @@ func _on_quit_btn_pressed():
 
 func _on_continue_btn_pressed():
 	$ExitScreen.visible = false
+
+
+func _on_stop_hiding_btn_pressed():
+	$HidingUI.visible = false
+	$".."/".."/Player.can_move = true
+	$".."/".."/Player/AnimatedSprite2D.visible = true
+	$".."/".."/Player.is_hiding = false
