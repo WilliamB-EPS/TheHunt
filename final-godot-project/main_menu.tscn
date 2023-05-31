@@ -61,7 +61,7 @@ offset_right = 1920.0
 offset_bottom = 1088.0
 scale = Vector2(0.6, 0.6)
 stream = ExtResource("1_khrpe")
-volume_db = -1.1
+volume_db = -80.0
 autoplay = true
 
 [node name="Control2" type="Control" parent="."]

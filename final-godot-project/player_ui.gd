@@ -4,8 +4,11 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$".."/".."/Player.can_move = false
-	if Globals.curr_level == 2:
+	if Globals.curr_level == 1:
+			Globals.num_keys = 0
+	elif Globals.curr_level == 2:
 		$UpdateUI/Label.text = "THIS LEVEL HAS NO INSTRUCTIONS\nEXPLORE THE MAP TO FIND WHAT YOU\nNEED AND HOW TO ESCAPE."	
+		$ExitScreen/Label.text =  "THERE ARE NO OBJECTIVES \nFOR THIS LEVEL.\n EXPLORE THE MAP TO FIND \nUT HOW TO PROCEED.\n GOOD LUCK."	
 	$UpdateUI.visible = true
 	self.set_num_keys(Globals.num_keys)
 

@@ -12,8 +12,7 @@ var can_move = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite2D.play("idle_down")
-	
+	$AnimatedSprite2D.play("idle_down")	
 
 func switch_to(new_state: State):
 	curstate = new_state
