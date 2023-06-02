@@ -397,7 +397,6 @@ scale = Vector2(0.224138, 0.227843)
 texture = ExtResource("5_jw6nt")
 
 [node name="UpdateUI" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -441,11 +440,11 @@ offset_top = 224.0
 offset_right = 854.0
 offset_bottom = 406.0
 theme_override_font_sizes/font_size = 20
-text = "YOUR SHIP HAS RECENTLY BEEN INVADED BY ALIENS,
-AND YOU ARE THE ONLY SURVIVOR. TO COMPLETE THIS
-LEVEL, COLLECT TWO KEYS FROM THE BOXES SCATTERED
-AROUND THE SPACE STATION AND REACH THE STAIRS
-ON THE OTHER SIDE. GOOD LUCK."
+text = "TO COMPLETE THIS LEVEL, COLLECT TWO KEYS 
+FROM THE BOXES SCATTERED AROUND 
+THE SPACE STATION AND REACH THE STAIRS
+ON THE OTHER SIDE. NOTE THAT NOT ALL 
+BOXES HAVE KEYS. GOOD LUCK."
 horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UpdateUI"]

@@ -10,7 +10,7 @@ func _ready():
 	elif Globals.curr_level == 2:
 		player.num_keys = 2
 		$UpdateUI/Label.text = "THIS LEVEL HAS NO INSTRUCTIONS\nEXPLORE THE MAP TO FIND WHAT YOU\nNEED AND HOW TO ESCAPE."	
-		$ExitScreen/Label.text =  "THERE ARE NO OBJECTIVES \nFOR THIS LEVEL.\n EXPLORE THE MAP TO FIND \nUT HOW TO PROCEED.\n GOOD LUCK."	
+		$ExitScreen/Label.text =  "THERE ARE NO OBJECTIVES \nFOR THIS LEVEL.\n EXPLORE THE MAP TO FIND \nOUT HOW TO PROCEED.\n GOOD LUCK."	
 	elif Globals.curr_level == 3:
 		player.num_keys = 2
 		get_node("InventoryContainer/Item3").visible = true
