@@ -3,6 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# place keys randomly in two interact objects
 	var random = RandomNumberGenerator.new()
 	random.randomize()
 	var idx1 = random.randi_range(1, 6)

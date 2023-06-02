@@ -8,11 +8,12 @@ var mytype = type.KEY # set the type of this interact object in the editor
 
 func _on_body_entered(body):
 	if body.get_name() == "Player":
-		# opened objects can't be interacted with
+		# END object behaves different on level two
 		if self.mytype == type.END and Globals.curr_level == 2:
 			if $".."/CanvasLayer/PlayerUI/InventoryContainer/Item3.visible:
 				var playerui = $".."/CanvasLayer/PlayerUI.show_interact()
 				$".."/Player.curr_interact_area = self
+		# opened objects can't be interacted with
 		elif self.mytype != type.OPENED:
 			var playerui = $".."/CanvasLayer/PlayerUI.show_interact()
 			# connect to the player node (everything will be handled there)
@@ -30,6 +31,7 @@ func set_type(newtype):
 	elif newtype == "BLANK":
 		self.mytype = type.BLANK
 	else:
+		# avoids setting an invalid type
 		assert(1 == 0, "INVALID TYPE ARGUMENT")
 	
 	

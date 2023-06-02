@@ -4,6 +4,7 @@ extends Control
 func _ready():
 	await get_tree().create_timer(2).timeout
 	$AnimationPlayer.play("message_fade_in")
+	# darken out levels that aren't the current one
 	if Globals.curr_level == 1:
 		$Control2/Button20.modulate.a = 1.0
 		$Control2/Button21.modulate.a = 0.2
@@ -12,10 +13,14 @@ func _ready():
 		$Control2/Button20.modulate.a = 0.2
 		$Control2/Button21.modulate.a = 1.0
 		$Control2/Button22.modulate.a = 0.2
-	else:
+	elif Globals.curr_level == 3:
 		$Control2/Button20.modulate.a = 0.2
 		$Control2/Button21.modulate.a = 0.2
 		$Control2/Button22.modulate.a = 1.0
+	else: 
+		$Control2/Button20.modulate.a = 0.2
+		$Control2/Button21.modulate.a = 0.2
+		$Control2/Button22.modulate.a = 0.2
 		
 
 

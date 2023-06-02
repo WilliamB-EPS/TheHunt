@@ -10,11 +10,11 @@ var state_time = 0.0
 var curr_interact_area = null
 var can_move = true
 var is_hiding = false
+var num_keys
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.play("idle_down")	
-	Globals.curr_level = 3
 
 func switch_to(new_state: State):
 	curstate = new_state
@@ -117,7 +117,7 @@ func _on_animated_sprite_2d_animation_finished():
 		if Globals.curr_level == 1:
 			
 			if self.curr_interact_area.mytype == self.curr_interact_area.type.END:	
-				if Globals.num_keys >= 2:	
+				if self.num_keys >= 2:	
 					$".."/CanvasLayer/PlayerUI.hide_interact()
 					$".."/AnimationPlayer.play("shader_death")
 					await $".."/AnimationPlayer.animation_finished
@@ -128,14 +128,14 @@ func _on_animated_sprite_2d_animation_finished():
 			else:
 				$".."/CanvasLayer/PlayerUI.hide_interact()
 				if self.curr_interact_area.mytype == self.curr_interact_area.type.KEY:		
-					Globals.num_keys += 1
-					$".."/CanvasLayer/PlayerUI.set_num_keys(Globals.num_keys)
+					self.num_keys += 1
+					$".."/CanvasLayer/PlayerUI.set_num_keys(self.num_keys)
 				elif self.curr_interact_area.mytype == self.curr_interact_area.type.BLANK:	
 					$".."/CanvasLayer/PlayerUI.show_blank_message()	
+				# stop player from opening this box again
 				self.curr_interact_area.mytype = self.curr_interact_area.type.OPENED	
 				self.curr_interact_area = null
 
-		
 		elif Globals.curr_level == 2:	
 			if self.curr_interact_area.mytype == self.curr_interact_area.type.NPC:
 				$".."/CanvasLayer/PlayerUI.npc_interact()
@@ -147,7 +147,10 @@ func _on_animated_sprite_2d_animation_finished():
 		
 		elif Globals.curr_level == 3:	
 			if self.curr_interact_area.mytype == self.curr_interact_area.type.CLOSET:
-				if Globals.num_keys >= 1:
+				var alien1_attack = $".."/Alien1.curstate == $".."/Alien1.State.ATTACK
+				var alien2_attack = $".."/Alien2.curstate == $".."/Alien2.State.ATTACK
+				# we can only hide if we have keys and the aliens aren't attacking
+				if self.num_keys >= 1 and !alien1_attack and !alien2_attack:
 					$AnimatedSprite2D.visible = false
 					$".."/CanvasLayer/PlayerUI.show_hide_UI()
 					self.curr_interact_area = self.curr_interact_area.type.OPENED

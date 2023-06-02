@@ -43,16 +43,17 @@ func switch_to(new_state: State):
 
 func _physics_process(delta):
 	# state depends on distance from player
-	if player.is_hiding == true:
-		switch_to(State.ROAM)
-	elif curstate == State.TRACK:
-		if (player.position - self.position).length() < 70:
+	if curstate == State.TRACK:
+		if player.is_hiding == true: # hiding in closet => roam
+			switch_to(State.ROAM)
+		elif (player.position - self.position).length() < 70:
 			switch_to(State.ATTACK)
 		elif (player.position - self.position).length() >= 500:
 			switch_to(State.ROAM)
 	elif curstate == State.ROAM:
 		if (player.position - self.position).length() < 400:
-			switch_to(State.TRACK)
+			if player.is_hiding == false: # hiding means we must stay in roam
+				switch_to(State.TRACK)
 
 	if curstate == State.TRACK:
 		navigation_agent.target_position = player.position
@@ -99,6 +100,7 @@ func _on_animated_sprite_2d_animation_finished():
 	if curstate == State.ATTACK:
 		# game is over (one hit kills)
 		# lockup the alien and player
+		$".."/CanvasLayer/PlayerUI.hide_interact()
 		$".."/AnimationPlayer.play("shader_death")
 		await $".."/AnimationPlayer.animation_finished
 		$".."/CanvasLayer/PlayerUI.lose_screen()

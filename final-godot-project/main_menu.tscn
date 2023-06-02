@@ -160,17 +160,17 @@ text = "QUIT GAME"
 
 [node name="Label" type="Label" parent="Control2"]
 layout_mode = 0
-offset_left = 504.0
-offset_top = 190.0
-offset_right = 970.0
-offset_bottom = 454.0
+offset_left = 499.0
+offset_top = 194.0
+offset_right = 965.0
+offset_bottom = 458.0
 theme_override_font_sizes/font_size = 20
 text = "WELCOME TO THE HUNT. 
-
-TO WIN THE GAME, COMPLETE EACH 
-OF THE LEVELS, WITHOUT BEING KILLED.
-
-THE LEVELS WILL GET HARDER
+TO WIN THE GAME, REACH THE ESCAPE
+POD BY COMPLETING EACH OF THE LEVELS 
+WITHOUT BEING KILLED. YOU CAN PRESS 
+ESCAPE AT ANY TIME TO BE REMINDED OF
+YOUR OBJECTIVES.
 
 GOOD LUCK."
 
