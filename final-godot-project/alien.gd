@@ -64,7 +64,7 @@ func _physics_process(delta):
 		just_entered_roam = false
 		
 	# navigation2d movement (inspired by Godot documentation)
-	if navigation_agent.distance_to_target() > 10:
+	if navigation_agent.distance_to_target() > 15:
 		var new_velocity: Vector2 = navigation_agent.get_next_path_position() - global_position
 		new_velocity = new_velocity.normalized() * movement_speed
 		if curstate != State.ATTACK:

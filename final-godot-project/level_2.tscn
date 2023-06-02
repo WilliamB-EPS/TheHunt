@@ -38966,7 +38966,7 @@ layer_2/tile_data = PackedInt32Array(262152, 1, 0, 327688, 1, 0, 393224, 1, 0, 4
 position = Vector2(550, 2266)
 scale = Vector2(3, 3)
 xmax = 2000
-ymin = 275
+ymin = 300
 ymax = 2300
 
 [node name="Alien2" parent="." instance=ExtResource("4_031ls")]
@@ -38974,7 +38974,7 @@ position = Vector2(1986, 966)
 scale = Vector2(3, 3)
 xmin = 1500
 xmax = 3500
-ymin = 275
+ymin = 300
 ymax = 2300
 
 [node name="InteractObject" parent="." instance=ExtResource("9_2tue1")]
