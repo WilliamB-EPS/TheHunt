@@ -8,7 +8,10 @@ enum State {ROAM, TRACK, ATTACK}
 var state_time = 0.0
 var curstate = State.ROAM
 var just_entered_roam = true
-var prev_pos = self.position
+var prev_positions = []
+var stuck = false
+var is_idle = false
+var pos_dif
 
 @export
 var xmin = 100
@@ -41,9 +44,21 @@ func switch_to(new_state: State):
 	elif new_state == State.TRACK:
 		movement_speed = 170.0
 
-func _physics_process(delta):
+func _physics_process(delta):	
+	pos_dif = 30.0
+	self.prev_positions.append(self.position)
+	if prev_positions.size() > 20:
+		prev_positions.remove_at(0) 
+	if prev_positions.size() == 20:
+		pos_dif = (prev_positions[19] - prev_positions[0]).length()
+		if pos_dif < 3:
+			self.stuck = true
+		
+	if self.stuck and self.is_idle == false and curstate != State.ATTACK:
+		switch_to(State.ROAM)
+		self.stuck = false
 	# state depends on distance from player
-	if curstate == State.TRACK:
+	elif curstate == State.TRACK:
 		if player.is_hiding == true: # hiding in closet => roam
 			switch_to(State.ROAM)
 		elif (player.position - self.position).length() < 70:
@@ -67,32 +82,27 @@ func _physics_process(delta):
 	if navigation_agent.distance_to_target() > 15:
 		var new_velocity: Vector2 = navigation_agent.get_next_path_position() - global_position
 		new_velocity = new_velocity.normalized() * movement_speed
-		if curstate != State.ATTACK:
+		if curstate != State.ATTACK and pos_dif > 25.0:
+			self.is_idle = false
 			if new_velocity.x < 0:
 				$AnimatedSprite2D.flip_h = true
-				if abs(new_velocity.length()) < 10:
-					$AnimatedSprite2D.play("idle")
-				else:
-					$AnimatedSprite2D.play("walk_right")
+				$AnimatedSprite2D.play("walk_right")
 			else:
 				$AnimatedSprite2D.flip_h = false
-				if abs(new_velocity.length()) < 10:
-					$AnimatedSprite2D.play("idle")
-				else:
-					$AnimatedSprite2D.play("walk_right")
+				$AnimatedSprite2D.play("walk_right")
 		velocity = new_velocity
 		move_and_slide()
 	elif curstate != State.ATTACK:
+		self.is_idle = true
 		if velocity.x < 0:
 			$AnimatedSprite2D.flip_h = true
 			$AnimatedSprite2D.play("idle")
 		else:
 			$AnimatedSprite2D.flip_h = false
 			$AnimatedSprite2D.play("idle")
-			
-	prev_pos = self.position
 
 	state_time += delta
+	
 		
 
 func _on_animated_sprite_2d_animation_finished():
