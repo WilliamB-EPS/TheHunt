@@ -45,6 +45,9 @@ func switch_to(new_state: State):
 		movement_speed = 170.0
 
 func _physics_process(delta):	
+	# addresses issue where alien gets stuck
+	# basically, if we havent moved a lot in the last 20 frames,
+	# signal that we're stuck and get a new target point
 	pos_dif = 30.0
 	self.prev_positions.append(self.position)
 	if prev_positions.size() > 20:
@@ -57,6 +60,7 @@ func _physics_process(delta):
 	if self.stuck and self.is_idle == false and curstate != State.ATTACK:
 		switch_to(State.ROAM)
 		self.stuck = false
+		
 	# state depends on distance from player
 	elif curstate == State.TRACK:
 		if player.is_hiding == true: # hiding in closet => roam
@@ -82,6 +86,9 @@ func _physics_process(delta):
 	if navigation_agent.distance_to_target() > 15:
 		var new_velocity: Vector2 = navigation_agent.get_next_path_position() - global_position
 		new_velocity = new_velocity.normalized() * movement_speed
+		# we only play with the animations if we arent stuck/moving slowly
+		# this prevents rapid direction switching when the alien gets stuck,
+		# which makes the game loook buggy
 		if curstate != State.ATTACK and pos_dif > 25.0:
 			self.is_idle = false
 			if new_velocity.x < 0:
